@@ -3,9 +3,10 @@ from .entidade import Entidade
 from .pessoa import Pessoa
 from .itinerario import Itinerario
 from .pagamento import Pagamento
+from datetime import date
 
 class Viagem(Entidade):
-    def __init__(self, id: int, destinos: str, data_inicio: str, data_fim: str):
+    def __init__(self, id: int, destinos: str, data_inicio: date, data_fim: date):
         super().__init__(id)
         self.destinos = destinos
         self.data_inicio = data_inicio

@@ -3,6 +3,7 @@ from Model.viagem import Viagem
 from Model.pessoa import Pessoa
 from Model.itinerario import Itinerario
 from Model.empresa import Empresa
+from datetime import datetime
 
 class TelaViagem:
     def mostrar_menu(self) -> str:
@@ -110,8 +111,11 @@ class TelaViagem:
         try:
             id = int(input("ID da Viagem: "))
             destinos = input("Destinos: ")
-            data_inicio = input("Data de início (ex: 2025-10-11): ")
-            data_fim = input("Data de término (ex: 2025-10-20): ")
+            data_inicio_str = input("Data de início (AAAA-MM-DD): ")
+            data_fim_str = input("Data de término (AAAA-MM-DD): ")
+
+            data_inicio = datetime.strptime(data_inicio_str, '%Y-%m-%d').date()
+            data_fim = datetime.strptime(data_fim_str, '%Y-%m-%d').date()
 
             if not pessoas_disponiveis:
                 self.mostrar_mensagem("Aviso: Nenhuma pessoa cadastrada para adicionar à viagem.")
@@ -129,7 +133,7 @@ class TelaViagem:
                 "data_fim": data_fim, "ids_pessoas": ids_selecionados
             }
         except ValueError:
-            self.mostrar_mensagem("Erro: ID e IDs de pessoas devem ser números.")
+            self.mostrar_mensagem("Erro: ID deve ser um número e a data deve estar no formato AAAA-MM-DD.")
             return None
 
     def mostrar_mensagem(self, mensagem: str):
